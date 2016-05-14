@@ -10,7 +10,7 @@ var express = require('express')
 , path = require('path');
 
 //URL for the sessions collections in mongoDB
-var mongoSessionConnectURL = "mongodb://localhost:27017/sessions";
+var mongoSessionConnectURL = "mongodb://10.250.216.42:27017/sessions";
 var expressSession = require("express-session");
 var mongoStore = require("connect-mongo")(expressSession);
 var mongo = require("./routes/mongo");

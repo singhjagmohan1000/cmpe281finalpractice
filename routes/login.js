@@ -2,7 +2,7 @@
  * New node file
  */
 var mongo = require("./mongo");
-var mongoURL = "mongodb://localhost:27017/login";
+var mongoURL = "mongodb://10.250.216.42:27017/login";
 
 exports.checkLogin = function(req,res){
 	if(req.session.username){
