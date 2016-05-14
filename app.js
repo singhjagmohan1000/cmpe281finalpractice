@@ -19,7 +19,7 @@ var login = require("./routes/login");
 var app = express();
 
 //all environments
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -49,12 +49,10 @@ if ('development' === app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/homepage',login.redirectToHomepage);
-app.get('/fetchData', login.fetchForHomePage);
 
 //POST Requests
 app.post('/checklogin', login.checkLogin);
 app.post('/logout', login.logout);
-app.post('/signUp', login.signUp);
 
 //connect to the mongo collection session and then createServer
 mongo.connect(mongoSessionConnectURL, function(){

@@ -2,58 +2,27 @@
 <html>
 <head>
 <link rel='stylesheet' href='/stylesheets/style.css' />
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <link rel='stylesheet' href='/stylesheets/style.css' />
-
+<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 <meta http-equiv="Cache-Control"
 	content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <title>Welcome</title>
 </head>
-<script>
-var login = angular.module('login', []);
-//defining the login controller
-login.controller('login', function($scope, $http) {
-$scope.error="";
-
-$http({
-	method : 'GET',
-	url : '/fetchData'
-	
-}).then(function(response) {console.log(response.data);
-	$scope.firstname=response.data.firstname;
-	$scope.lastname=response.data.lastname;
-	$scope.username=response.data.username;
-	
-},function(response) {
-	$scope.error=response.data;
-});
-
-});
-</script>
-<body  ng-app="login" ng-controller="login">
+<body>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-12">
 			<form action="logout" method="post">
-				<h4>Welcome to the Portal,</h4>
-				<label>Firstname</label>
-				<pre>{{firstname}}</pre>
-				<label>Lastname</label>
-				<pre> {{lastname}}</pre>
-				<label>Username</label>
-				<pre> {{username}}</pre>
-				{{error}}
+				<h4>Welcome to the Portal, <%= username %></h4>
 				<input type="submit" value="Logout"  class="btn btn-success"/>
 			</form>
 		</div>
