@@ -10,7 +10,7 @@ var express = require('express')
 , path = require('path');
 
 //URL for the sessions collections in mongoDB
-var mongoSessionConnectURL = "mongodb://10.250.216.42:27017/sessions";
+var mongoSessionConnectURL = "mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017:27017/sessions";
 var expressSession = require("express-session");
 var mongoStore = require("connect-mongo")(expressSession);
 var mongo = require("./routes/mongo");
@@ -49,9 +49,11 @@ if ('development' === app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/homepage',login.redirectToHomepage);
+app.get('/login', login.checkLogin);
 
 //POST Requests
-app.post('/checklogin', login.checkLogin);
+app.post('/login', login.login);
+app.post('/register', login.register);
 app.post('/logout', login.logout);
 
 //connect to the mongo collection session and then createServer

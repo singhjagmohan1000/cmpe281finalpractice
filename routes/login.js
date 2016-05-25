@@ -2,17 +2,17 @@
  * New node file
  */
 var mongo = require("./mongo");
-var mongoURL = "mongodb://10.250.216.42:27017/login";
-
-exports.checkLogin = function(req,res){
+var mongoURL = "mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017/login";
+exports.checkLogin = function(req, res){
+	res.render('login', { title: 'Express' });
+};
+exports.login = function(req,res){
 	if(req.session.username){
 		console.log(req.session.username +" isss the session");
 		json_responses = {"statusCode" : 200};
 		res.send(json_responses);
 	}
-	else {console.log(req.session.username);
-		// These two variables come from the form on
-		// the views/login.hbs page
+	else {
 		var username = req.param("username");
 		var password = req.param("password");
 		console.log(password + " is the object");
@@ -34,6 +34,39 @@ exports.checkLogin = function(req,res){
 				} else {
 					console.log("returned false");
 					//req.session.data={"email":email,"name":name};
+					json_responses = {"statusCode": 401};
+					res.send(json_responses);
+				}
+			});
+		});
+	}
+};
+exports.register = function(req,res){
+	if(req.session.username){
+		console.log(req.session.username +" isss the session");
+		json_responses = {"statusCode" : 200};
+		res.send(json_responses);
+	}
+	else {
+
+		var username = req.param("username");
+		var password = req.param("password");
+		console.log(password + " is the object");
+		var json_responses;
+
+		mongo.connect(mongoURL, function () {
+			console.log('Connected to mongo at: ' + mongoURL);
+			var coll = mongo.collection('login');
+
+			coll.insertOne({username: username, password: password}, function (err, user) {
+				if (user) {
+
+					json_responses = {"statusCode": 200};
+					res.send(json_responses);
+
+				} else {
+					console.log("returned false");
+
 					json_responses = {"statusCode": 401};
 					res.send(json_responses);
 				}
