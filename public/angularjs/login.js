@@ -7,14 +7,11 @@ login.controller('login', function($scope, $http) {
 	//Note: They become visible when we set them to false
 	$scope.invalid_login = true;
 	$scope.unexpected_error = true;
-	$scope.submit = function() {
+
 		$http({
-			method : "POST",
-			url : '/login',
-			data : {
-				"username" : $scope.username,
-				"password" : $scope.password
-			}
+			method : "GET",
+			url : '/hello',
+
 		}).success(function(data) {
 			//checking the response data for statusCode
 			if (data.statusCode == 401) {
@@ -22,33 +19,57 @@ login.controller('login', function($scope, $http) {
 				$scope.unexpected_error = true;
 			}
 			else
-				//Making a get call to the '/redirectToHomepage' API
-				window.location.assign("/homepage"); 
+			{
+				$scope.server1=data.server;
+				$scope.value1=data.hello;
+				console.log($scope.server1);
+			}
 		}).error(function(error) {
 			$scope.unexpected_error = false;
 			$scope.invalid_login = true;
 		});
-	};
-	$scope.register = function() {
-		$http({
-			method : "POST",
-			url : '/register',
-			data : {
-				"username" : $scope.username,
-				"password" : $scope.password
-			}
-		}).success(function(data) {
-			//checking the response data for statusCode
-			if (data.statusCode == 401) {
-				$scope.invalid_login = false;
-				$scope.unexpected_error = true;
-			}
-			else
-			//Making a get call to the '/redirectToHomepage' API
-				window.location.assign("/login");
-		}).error(function(error) {
-			$scope.unexpected_error = false;
-			$scope.invalid_login = true;
-		});
-	};
+
+	$http({
+		method : "GET",
+		url : '/hello1',
+
+	}).success(function(data) {
+		//checking the response data for statusCode
+		if (data.statusCode == 401) {
+			$scope.invalid_login = false;
+			$scope.unexpected_error = true;
+		}
+		else
+		{
+			$scope.server2=data.server;
+			$scope.value2=data.hello;
+			console.log($scope.server1);
+		}
+	}).error(function(error) {
+		$scope.unexpected_error = false;
+		$scope.invalid_login = true;
+	});
+
+	$http({
+		method : "GET",
+		url : '/hello2',
+
+	}).success(function(data) {
+		//checking the response data for statusCode
+		if (data.statusCode == 401) {
+			$scope.invalid_login = false;
+			$scope.unexpected_error = true;
+		}
+		else
+		{
+			$scope.server3=data.server;
+			$scope.value3=data.hello;
+			console.log($scope.server1);
+		}
+	}).error(function(error) {
+		$scope.unexpected_error = false;
+		$scope.invalid_login = true;
+	});
+
+
 })

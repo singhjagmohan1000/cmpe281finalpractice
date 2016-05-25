@@ -3,99 +3,69 @@
  */
 var mongo = require("./mongo");
 //var mongoURL = "mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017/login";
-var mongoURL = "mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017,ec2-54-164-32-81.compute-1.amazonaws.com:27017,ec2-54-89-131-188.compute-1.amazonaws.com:27017/login?w=0&readPreference=secondary";
-exports.checkLogin = function(req, res){
-	res.render('login', { title: 'Express' });
+var mongoURL = "mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017/login";
+var mongoURL1="mongodb://ec2-54-164-32-81.compute-1.amazonaws.com:27017/login";
+var mongoURL2="mongodb://ec2-54-89-131-188.compute-1.amazonaws.com:27017/login";
+exports.login = function(req,res) {
+
+    var json_responses;
+
+    mongo.connect(mongoURL, function () {
+        console.log('Connected to mongo at: ' + mongoURL);
+        var coll = mongo.collection('final');
+
+        coll.findOne({}, function (err, user) {
+            if (user) {
+
+                json_responses={"statusCode": 200, "server": mongoURL, "hello": user.hello};
+                res.send(json_responses)
+            }
+            else {
+                json_responses={"statusCode": 401, "server": mongoURL};
+                res.send(json_responses)
+            }
+        });
+    });
 };
-exports.login = function(req,res){
-	if(req.session.username){
-		console.log(req.session.username +" isss the session");
-		json_responses = {"statusCode" : 200};
-		res.send(json_responses);
-	}
-	else {
-		var username = req.param("username");
-		var password = req.param("password");
-		console.log(password + " is the object");
-		var json_responses;
+exports.login1 = function(req,res) {
 
-		mongo.connect(mongoURL, function () {
-			console.log('Connected to mongo at: ' + mongoURL);
-			var coll = mongo.collection('login');
+    var json_responses;
 
-			coll.findOne({username: username, password: password}, function (err, user) {
-				if (user) {
-					// This way subsequent requests will know the user is logged in.
-					//req.session.data={"username":username,"password":password};
-					req.session.username = user.username;
-					console.log(req.session.username + " is the session");
-					json_responses = {"statusCode": 200};
-					res.send(json_responses);
+    mongo.connect(mongoURL, function () {
+        console.log('Connected to mongo at: ' + mongoURL1);
+        var coll = mongo.collection('final');
 
-				} else {
-					console.log("returned false");
-					//req.session.data={"email":email,"name":name};
-					json_responses = {"statusCode": 401};
-					res.send(json_responses);
-				}
-			});
-		});
-	}
+        coll.findOne({}, function (err, user) {
+            if (user) {
+
+                json_responses={"statusCode": 200, "server": mongoURL1, "hello": user.hello};
+                res.send(json_responses)
+            }
+            else {
+                json_responses={"statusCode": 401, "server": mongoURL1};
+                res.send(json_responses)
+            }
+        });
+    });
 };
-exports.register = function(req,res){
-	if(req.session.username){
-		console.log(req.session.username +" isss the session");
-		json_responses = {"statusCode" : 200};
-		res.send(json_responses);
-	}
-	else {
+exports.login2 = function(req,res) {
 
-		var username = req.param("username");
-		var password = req.param("password");
-		console.log(password + " is the object");
-		var json_responses;
+    var json_responses;
 
-		mongo.connect(mongoURL, function () {
-			console.log('Connected to mongo at: ' + mongoURL);
-			var coll = mongo.collection('login');
+    mongo.connect(mongoURL, function () {
+        console.log('Connected to mongo at: ' + mongoURL2);
+        var coll = mongo.collection('final');
 
-			coll.insertOne({username: username, password: password}, function (err, user) {
-				if (user) {
+        coll.findOne({}, function (err, user) {
+            if (user) {
 
-					json_responses = {"statusCode": 200};
-					res.send(json_responses);
-
-				} else {
-					console.log("returned false");
-
-					json_responses = {"statusCode": 401};
-					res.send(json_responses);
-				}
-			});
-		});
-	}
+                json_responses={"statusCode": 200, "server": mongoURL2, "hello": user.hello};
+                res.send(json_responses)
+            }
+            else {
+                json_responses={"statusCode": 401, "server": mongoURL2};
+                res.send(json_responses)
+            }
+        });
+    });
 };
-
-//Redirects to the homepage
-exports.redirectToHomepage = function(req,res)
-{
-	//Checks before redirecting whether the session is valid
-	if(req.session.username)
-	{
-		//Set these headers to notify the browser not to maintain any cache for the page being loaded
-		res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-		res.render("homepage",{username:req.session.username});
-	}
-	else
-	{
-		res.redirect('/');
-	}
-};
-
-//Logout the user - invalidate the session
-exports.logout = function(req,res)
-{
-	req.session.destroy();
-	res.redirect('/');
-};
-
