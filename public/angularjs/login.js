@@ -43,7 +43,7 @@ login.controller('login', function($scope, $http) {
 		{
 			$scope.server2=data.server;
 			$scope.value2=data.hello;
-			console.log($scope.server1);
+			console.log($scope.server2);
 		}
 	}).error(function(error) {
 		$scope.unexpected_error = false;
@@ -64,7 +64,7 @@ login.controller('login', function($scope, $http) {
 		{
 			$scope.server3=data.server;
 			$scope.value3=data.hello;
-			console.log($scope.server1);
+			console.log($scope.server3);
 		}
 	}).error(function(error) {
 		$scope.unexpected_error = false;

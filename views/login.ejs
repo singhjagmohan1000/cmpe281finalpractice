@@ -19,46 +19,49 @@
 </head>
 <body ng-app="login" ng-controller="login">
 	<div class="row">
-		<div class="col-md-4">
+
 			<div class="row">
-				<div class="col-md-12" style="margin: 10px;">
-					Server: <label>mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017/login</label>
+				<div class="col-md-12">
+					Server 3: <label>{{server3}}</label>
+
 				</div>
-				<div class="col-md-12" style="margin: 10px;">
-					value: <label> "Hello World #1</label>
+				<div class="col-md-12">
+					value: <label> {{value3}}</label>
 				</div>
 
 
 
 
 			</div>
-			<div class="col-md-4">
+
 				<div class="row">
-					<div class="col-md-12" style="margin: 10px;">
-						Server: <label>mongodb://ec2-54-164-32-81.compute-1.amazonaws.com:27017/login</label>
+					<div class="col-md-12">
+						Server 1: <label>{{server1}}</label>
+
 					</div>
-					<div class="col-md-12" style="margin: 10px;">
-						value: <label> "Hello World #1</label>
+					<div class="col-md-12">
+						value: <label> {{value1}}</label>
 					</div>
 
 
 
 
 				</div>
-				<div class="col-md-4">
+
 					<div class="row">
-						<div class="col-md-12" style="margin: 10px;">
-							Server: <label>mongodb://ec2-54-89-131-188.compute-1.amazonaws.com:27017/login</label>
+						<div class="col-md-12">
+							Server 2: <label>{{server2}}</label>
+
 						</div>
-						<div class="col-md-12" style="margin: 10px;">
-							Server: <label> "Hello World #1</label>
+						<div class="col-md-12">
+							value: <label> {{value2}}</label>
 						</div>
 
 
 
 
 					</div>
-		</div>
+
 	</div>
 </body>
 </html>
