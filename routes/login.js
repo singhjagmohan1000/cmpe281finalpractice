@@ -2,7 +2,8 @@
  * New node file
  */
 var mongo = require("./mongo");
-var mongoURL = "mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017/login";
+//var mongoURL = "mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017/login";
+var mongoURL = "mongodb://ec2-52-72-105-67.compute-1.amazonaws.com:27017,ec2-54-164-32-81.compute-1.amazonaws.com:27017,ec2-54-89-131-188.compute-1.amazonaws.com:27017/login?w=0&readPreference=secondary";
 exports.checkLogin = function(req, res){
 	res.render('login', { title: 'Express' });
 };
